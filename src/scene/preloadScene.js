@@ -5,7 +5,7 @@ export default class Preload extends Phaser.Scene {
         })
     }
 
-    preload() {
+     preload() {
 
         this.load.multiatlas('cityscene', '../resource/image/walk.json', '../resource/image/');
 
@@ -17,9 +17,16 @@ export default class Preload extends Phaser.Scene {
         })
     }
 
-    create() {
-        this.scene.start('pigLevelScene')
+    sleep(t) {
+        return new Promise(resolve => {
+            setTimeout(resolve, t)
+        })
+    }
 
+    async  create() {
+        console.log("Promise babel test!!")
+        await this.sleep(2000)
+        this.scene.start('pigLevelScene')
     }
 
 

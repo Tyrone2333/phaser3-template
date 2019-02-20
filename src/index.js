@@ -1,4 +1,3 @@
-
 // 游戏场景
 import preloadScene from "./scene/preloadScene"
 import pigLevelScene from "./scene/pigLevelScene"
@@ -32,6 +31,6 @@ const config = {
         preloadScene,
         pigLevelScene,
     ]
-};
+}
 
-let game = new Phaser.Game(config);
+const game = new Phaser.Game(config)
