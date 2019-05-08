@@ -4,23 +4,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
 const PROJECT_PATH = process.cwd(); // 项目目录
-
-
-// Phaser webpack config
-// var phaserModule = path.join(__dirname, '/node_modules/phaser/')
-// var phaser = path.join(phaserModule, 'src/phaser.js')
-
-var definePlugin = new webpack.DefinePlugin({
-    'process.env': JSON.stringify({
-        NODE_ENV: 'production',
-        BASE_URL: '../gameCore.aspx',
-    }),
-  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false')),
-  WEBGL_RENDERER: true, // I did this to make webpack work, but I'm not really sure it should always be true
-  CANVAS_RENDERER: true // I did this to make webpack work, but I'm not really sure it should always be true
-})
 
 module.exports = function () {
     return {
@@ -37,7 +21,15 @@ module.exports = function () {
             filename: 'js/bundle.js'
         },
         plugins: [
-            definePlugin,
+            new webpack.DefinePlugin({
+                'process.env': JSON.stringify({
+                    NODE_ENV: 'production',
+                    BASE_URL: '../gameCore.aspx',
+                }),
+                __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false')),
+                WEBGL_RENDERER: true, // I did this to make webpack work, but I'm not really sure it should always be true
+                CANVAS_RENDERER: true // I did this to make webpack work, but I'm not really sure it should always be true
+            }),
             new CleanWebpackPlugin(['build']),
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
             /*new webpack.optimize.UglifyJsPlugin({
@@ -66,8 +58,14 @@ module.exports = function () {
                 hash: true
             }),
             new CopyWebpackPlugin([
-                // { from: 'assets', to: 'assets' },
-                // { from: 'resource', to: 'resource' }
+                {
+                    from:__dirname+'/static',//打包的静态资源目录地址
+                    to:'./static' //打包到dist下面的static
+                },
+                {
+                    from:__dirname+'/resource',//打包的静态资源目录地址
+                    to:'./resource' //打包到dist下面的static
+                }
             ]),
             // 不需要在文件名加 hash,HtmlWebpackPlugin 已经会在引入文件的后面加 hash
             new MiniCssExtractPlugin({
@@ -120,16 +118,5 @@ module.exports = function () {
         optimization: {
             minimize: true
         }
-        /*node: {
-          fs: 'empty',
-          net: 'empty',
-          tls: 'empty'
-        },
-        resolve: {
-          alias: {
-            'phaser': phaser,
-
-          }
-        }*/
     }
 }

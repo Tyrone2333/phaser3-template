@@ -32,5 +32,6 @@ const config = {
         pigLevelScene,
     ]
 }
+console.log(`当前处于 %c${process.env.NODE_ENV}%c 模式`, "background:#fff;color: #f00", "")
 
 const game = new Phaser.Game(config)
