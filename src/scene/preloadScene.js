@@ -7,7 +7,8 @@ export default class Preload extends Phaser.Scene {
 
      preload() {
 
-        this.load.multiatlas('cityscene', '../resource/image/walk.json', '../resource/image/');
+        // resource 会和 static 文件夹一样被复制
+        this.load.multiatlas('cityscene', './resource/image/walk.json', './resource/image/');
 
         // set callback for loading progress updates
         this.load.on('progress', this.onProgress, this)
@@ -25,7 +26,7 @@ export default class Preload extends Phaser.Scene {
 
     async  create() {
         console.log("Promise babel test!!")
-        await this.sleep(2000)
+        await this.sleep(100)
         this.scene.start('pigLevelScene')
     }
 

@@ -16,7 +16,7 @@ module.exports = function () {
 
         },
         output: {
-            path: path.resolve(__dirname, 'build'),
+            path: path.resolve(__dirname, 'dist'),
             publicPath: './',
             filename: 'js/bundle.js'
         },
@@ -30,7 +30,7 @@ module.exports = function () {
                 WEBGL_RENDERER: true, // I did this to make webpack work, but I'm not really sure it should always be true
                 CANVAS_RENDERER: true // I did this to make webpack work, but I'm not really sure it should always be true
             }),
-            new CleanWebpackPlugin(['build']),
+            new CleanWebpackPlugin(['dist']),
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
             /*new webpack.optimize.UglifyJsPlugin({
               drop_console: true,
@@ -41,7 +41,7 @@ module.exports = function () {
             }),*/
             //new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' /* chunkName= */, filename: 'js/vendor.bundle.js' /* filename= */ }),
             new HtmlWebpackPlugin({
-                filename: 'index.html', // path.resolve(__dirname, 'build', 'index.html'),
+                filename: 'index.html', // path.resolve(__dirname, 'dist', 'index.html'),
                 template: './src/index.html',
                 chunks: ['vendor', 'app'],
                 chunksSortMode: 'manual',
